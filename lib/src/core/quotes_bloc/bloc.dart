@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:azkar/src/core/models/category_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 part 'event.dart';
@@ -26,7 +27,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
     categories =
         await rootBundle.loadString("assets/json/azkar.json").then((data) {
       List<dynamic>? response = json.decode(data);
-      print(response);
+      debugPrint(response.toString());
       if (response == null) {
         emit(QuotesLoadFailed(Exception("Couldn't load categories")));
       }
@@ -34,7 +35,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
           response!.map((e) => CategoryModel.fromJson(e)).toList();
       return res;
     }).catchError((error) {
-      return print(error.toString());
+      debugPrint(error.toString());
     });
     emit(QuotesLoadSuccess(categories));
   }

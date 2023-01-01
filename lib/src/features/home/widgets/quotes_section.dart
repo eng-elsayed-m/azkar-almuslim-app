@@ -1,7 +1,9 @@
 import 'package:azkar/src/core/quotes_bloc/bloc.dart';
 import 'package:azkar/src/core/utils/configs/configs.dart';
 import 'package:azkar/src/core/utils/entrance_fader.dart';
+import 'package:azkar/src/core/widgets/app_loader.dart';
 import 'package:azkar/src/features/home/widgets/category_card.dart';
+import 'package:azkar/src/features/home/widgets/title_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,65 +28,36 @@ class _QuotesSectionState extends State<QuotesSection> {
       child: BlocBuilder<QuotesBloc, QuotesState>(
         builder: (context, state) {
           if (state is QuotesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: AppIndicator());
           } else if (state is QuotesLoadSuccess) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: AppDimensions.normalize(150),
-                    bottom: AppDimensions.normalize(10),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      EntranceFader(
-                        delay: const Duration(milliseconds: 100),
-                        duration: const Duration(milliseconds: 350),
-                        offset: const Offset(0.0, 32.0),
-                        child: Image.asset(
-                          'assets/images/title-card.png',
-                          fit: BoxFit.cover,
+                TitleCard(
+                  title: TextField(
+                    // textAlign: TextAlign.center,
+                    textAlignVertical: TextAlignVertical.center,
+                    style: theme.textTheme.headlineSmall!.copyWith(
+                      fontWeight: FontWeight.w900,
+                      color: theme.scaffoldBackgroundColor,
+                    ),
+                    onChanged: (value) => setState(() {
+                      query = value;
+                    }),
+                    decoration: InputDecoration(
+                        hintText: "الأذكــــــار",
+                        hintStyle: theme.textTheme.headlineSmall!.copyWith(
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "A-Hemmat",
+                          color: theme.scaffoldBackgroundColor,
                         ),
-                      ),
-                      Positioned(
-                        right: dSize.width * 0.28,
-                        // height: AppDimensions.normalize(55),
-                        left: dSize.width * 0.033,
-                        child: EntranceFader(
-                          delay: const Duration(milliseconds: 100),
-                          duration: const Duration(milliseconds: 350),
-                          offset: const Offset(0.0, 32.0),
-                          child: TextField(
-                            // textAlign: TextAlign.center,
-                            textAlignVertical: TextAlignVertical.center,
-                            style: theme.textTheme.headlineSmall!.copyWith(
-                              fontWeight: FontWeight.w900,
-                              color: theme.scaffoldBackgroundColor,
-                            ),
-                            onChanged: (value) => setState(() {
-                              query = value;
-                            }),
-                            decoration: InputDecoration(
-                                hintText: "الأذكــــــار",
-                                hintStyle:
-                                    theme.textTheme.headlineSmall!.copyWith(
-                                  fontWeight: FontWeight.w900,
-                                  fontFamily: "A-Hemmat",
-                                  color: theme.scaffoldBackgroundColor,
-                                ),
-                                border: InputBorder.none,
-                                suffixIcon: Icon(
-                                  Icons.search,
-                                  size: 35,
-                                  color: theme.scaffoldBackgroundColor,
-                                )),
-                          ),
-                        ),
-                      ),
-                    ],
+                        border: InputBorder.none,
+                        suffixIcon: Icon(
+                          Icons.search,
+                          size: 35,
+                          color: theme.scaffoldBackgroundColor,
+                        )),
                   ),
                 ),
                 EntranceFader(
@@ -97,12 +70,11 @@ class _QuotesSectionState extends State<QuotesSection> {
                     height: 0,
                   ),
                 ),
-                EntranceFader(
-                  delay: const Duration(milliseconds: 100),
-                  duration: const Duration(milliseconds: 350),
-                  offset: const Offset(0.0, 50.0),
-                  child: SizedBox(
-                    height: dSize.height * 0.53,
+                Expanded(
+                  child: EntranceFader(
+                    delay: const Duration(milliseconds: 100),
+                    duration: const Duration(milliseconds: 350),
+                    offset: const Offset(0.0, 50.0),
                     child: GridView(
                       scrollDirection: Axis.vertical,
                       padding: const EdgeInsets.all(10.0),

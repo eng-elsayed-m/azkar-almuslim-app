@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import '../models/category_model.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +6,16 @@ import 'package:flutter/services.dart';
 import 'package:system_alert_window/system_alert_window.dart';
 
 Future launchSystemAlertWindowsDialog() async {
-  final now = DateTime.now();
   final List<CategoryModel> list =
       await rootBundle.loadString("assets/json/azkar.json").then((data) {
     List<dynamic>? response = json.decode(data);
-    print(response);
+    debugPrint(response.toString());
     final List<CategoryModel> res =
         response!.map((e) => CategoryModel.fromJson(e)).toList();
     return res;
   }).catchError((error) {
-    return print(error.toString());
+    debugPrint(error.toString());
   });
-  int catIndex = Random(0).nextInt(list.length - 1);
 
   // bool permitted = false;
   // while (!permitted) {

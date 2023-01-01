@@ -71,7 +71,7 @@ class IntroScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  NV.nextScreenNamed(context, HomeScreen.routeName);
+                  NV.nextScreenReplaceNamed(context, HomeScreen.routeName);
                 },
                 child: Card(
                   elevation: 5,

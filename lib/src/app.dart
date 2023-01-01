@@ -1,12 +1,9 @@
-import 'package:azkar/src/core/utils/configs/app.dart';
-import 'package:azkar/src/core/utils/configs/app_dimensions.dart';
 import 'package:azkar/src/features/home/home_screen.dart';
 import 'package:azkar/src/features/intro/intro.dart';
 import 'package:azkar/src/features/settings/settings_controller.dart';
 import 'package:azkar/src/features/settings/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({
@@ -24,7 +21,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale = Locale('ar', 'EG');
+  Locale? _locale = const Locale('ar', 'EG');
 
   void setLocale(Locale local) {
     setState(() {

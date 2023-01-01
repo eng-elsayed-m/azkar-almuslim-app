@@ -10,17 +10,25 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
+  adhan: ^2.0.0-nullsafety.2
   assets_audio_player: ^3.0.5
   circular_bottom_navigation: ^2.2.0
+  dartz: ^0.10.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_compass: ^0.7.0
   flutter_localizations:
     sdk: flutter
+  get_it: ^7.2.0
+  internet_connection_checker: ^1.0.0+1
+  intl: ^0.17.0
+  location: ^4.4.0
   shared_preferences: ^2.0.15
   system_alert_window: ^1.2.0
   workmanager: ^0.5.1
+
 
 
 dev_dependencies:
@@ -61,6 +69,16 @@ flutter:
       fonts:
         - asset: assets/fonts/al-hemmat.ttf
 
+    - family: AmiriQuran
+      fonts:
+        - asset: assets/fonts/AmiriQuran-Regular.ttf
+
     - family: Aldhabi
       fonts:
         - asset: assets/fonts/aldhabi.ttf
+
+    - family: QuranSurah
+      fonts:
+        - asset: assets/fonts/QuranSurah.ttf
+
+        

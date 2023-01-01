@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SHP {
@@ -8,7 +9,7 @@ class SHP {
       prefs.setString(key, value);
       return true;
     } catch (e) {
-      print("save data error is $e");
+      debugPrint("save data error is $e");
       return false;
     }
   }
@@ -25,7 +26,7 @@ class SHP {
       prefs.setInt(key, value);
       return true;
     } catch (e) {
-      print("save data error is $e");
+      debugPrint("save data error is $e");
       return false;
     }
   }
@@ -43,7 +44,7 @@ class SHP {
       prefs.setDouble(key, value);
       return true;
     } catch (e) {
-      print("save data error is $e");
+      debugPrint("save data error is $e");
       return false;
     }
   }
@@ -61,7 +62,7 @@ class SHP {
       prefs.setStringList(key, value);
       return true;
     } catch (e) {
-      print("save data error is $e");
+      debugPrint("save data error is $e");
       return false;
     }
   }
@@ -79,7 +80,7 @@ class SHP {
       prefs.setBool(key, value);
       return true;
     } catch (e) {
-      print(("save bool error is $e"));
+      debugPrint(("save bool error is $e"));
       return false;
     }
   }

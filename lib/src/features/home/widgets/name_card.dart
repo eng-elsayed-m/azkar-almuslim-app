@@ -2,9 +2,6 @@ import 'dart:math';
 
 import 'package:azkar/src/core/models/name_model.dart';
 import 'package:azkar/src/core/utils/configs/app_dimensions.dart';
-import 'package:azkar/src/core/utils/entrance_fader.dart';
-import 'package:azkar/src/core/utils/nav.dart';
-import 'package:azkar/src/features/quotes/quotes_screen.dart';
 import 'package:flutter/material.dart';
 
 class NameCard extends StatefulWidget {
@@ -25,7 +22,7 @@ class _NameCardState extends State<NameCard> {
   Widget switcherWidget() {
     return TweenAnimationBuilder(
       tween: Tween(begin: 0.0, end: _isShowingFront ? 0.0 : pi),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       curve: Curves.linearToEaseOut,
       builder: (context, double value, child) {
         final isShowingBack = value > pi / 2.0;
@@ -47,9 +44,7 @@ class _NameCardState extends State<NameCard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     frontWidget = CardWidget(
       front: true,
       key: ValueKey(widget.name.name),
@@ -71,7 +66,6 @@ class _NameCardState extends State<NameCard> {
 
   @override
   Widget build(BuildContext context) {
-    final txtTheme = Theme.of(context).textTheme;
     return switcherWidget();
     // return InkWell(
     //     onTap: () {},
@@ -144,51 +138,47 @@ class CardWidget extends StatelessWidget {
     return GestureDetector(
         onTap: onTapped,
         child: Container(
-          width: AppDimensions.normalize(200),
+          width: AppDimensions.normalize(170),
           decoration: !front
               ? null
               : BoxDecoration(
                   shape: front ? BoxShape.circle : BoxShape.rectangle,
                   color: Theme.of(context).cardColor,
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
-                    width: 2.0,
-                  ),
+                  // border: Border.all(
+                  //   color: Theme.of(context).primaryColor,
+                  //   width: 2.0,
+                  // ),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.5),
-                      blurRadius: 15.0,
-                      spreadRadius: 2,
+                      blurRadius: 6.0,
+                      spreadRadius: 3,
                     )
                   ],
                 ),
           child: front
-              ? FittedBox(
-                  fit: BoxFit.contain,
+              ? Center(
                   child: Text(
                     name,
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    textScaleFactor: 4.0,
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.w900,
-                        shadows: const [Shadow(offset: Offset(0.0, 1.0))],
+                        shadows: const [Shadow(offset: Offset(5.0, 5.0))],
                         fontFamily: "Aldhabi",
                         color: Colors.green.shade500),
                   ),
                 )
               : Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      name,
-                      textWidthBasis: TextWidthBasis.parent,
-                      textScaleFactor: 1.5,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontWeight: FontWeight.w900,
-                            fontFamily: "A-Hemmat",
-                          ),
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.visible,
-                      softWrap: true,
-                    ),
+                  child: Text(
+                    name,
+                    textScaleFactor: 1.7,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w900,
+                          fontFamily: "A-Hemmat",
+                        ),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.visible,
+                    softWrap: true,
                   ),
                 ),
         ));
