@@ -71,7 +71,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                                 if (widget.audioPlayer.currentLoopMode ==
                                     LoopMode.playlist) {
                                   await widget.audioPlayer.previous();
-                                  setState(() {});
                                 }
                               },
                   ),
@@ -82,7 +81,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                     color: Colors.green,
                     onPressed: () async {
                       await widget.audioPlayer.playOrPause();
-                      setState(() {});
                     },
                   ),
                   IconButton(
@@ -95,7 +93,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                                 if (widget.audioPlayer.currentLoopMode ==
                                     LoopMode.playlist) {
                                   await widget.audioPlayer.next();
-                                  setState(() {});
                                 }
                               },
                   ),
@@ -106,7 +103,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                         : Colors.red,
                     onPressed: () async {
                       await widget.audioPlayer.stop();
-                      setState(() {});
                     },
                   )
                 ],

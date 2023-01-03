@@ -1,4 +1,6 @@
+import 'package:azkar/src/features/quran/data/models/pin_model.dart';
 import 'package:azkar/src/features/quran/data/models/surah_model.dart';
+import 'package:azkar/src/features/quran/domain/entities/pin.dart';
 import 'package:azkar/src/features/quran/domain/entities/surah.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
@@ -46,6 +48,26 @@ class QuranRepositoryImpl implements QuranRepository {
           audioEdition: audioEdition,
           translationEdition: translationEdition);
       return Right(remoteSections);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, PinEntity?>> getPin() async {
+    try {
+      final remoteSections = await remoteDataSource.getPin();
+      return Right(remoteSections);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, PinEntity>> setPin(PinModel entity) async {
+    try {
+      final remoteSections = await remoteDataSource.setPin(entity);
+      return Right(remoteSections!);
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -27,7 +27,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
     categories =
         await rootBundle.loadString("assets/json/azkar.json").then((data) {
       List<dynamic>? response = json.decode(data);
-      debugPrint(response.toString());
+      // debugPrint(response.toString());
       if (response == null) {
         emit(QuotesLoadFailed(Exception("Couldn't load categories")));
       }

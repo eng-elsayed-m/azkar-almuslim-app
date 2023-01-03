@@ -68,6 +68,7 @@ class _PrayersTimesWidgetState extends State<PrayersTimesWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleCard(
             title: Text(

@@ -18,6 +18,7 @@ class TitleCard extends StatelessWidget {
       ),
       child: Stack(
         alignment: Alignment.center,
+        fit: StackFit.loose,
         children: [
           EntranceFader(
             delay: const Duration(milliseconds: 100),
@@ -26,18 +27,14 @@ class TitleCard extends StatelessWidget {
             child: Image.asset(
               'assets/images/title-card.png',
               fit: BoxFit.cover,
+              width: dSize.width * 0.5,
             ),
           ),
-          Positioned(
-            right: dSize.width * 0.28,
-            // height: AppDimensions.normalize(55),
-            left: dSize.width * 0.033,
-            child: EntranceFader(
-                delay: const Duration(milliseconds: 100),
-                duration: const Duration(milliseconds: 350),
-                offset: const Offset(0.0, 32.0),
-                child: title),
-          ),
+          EntranceFader(
+              delay: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 350),
+              offset: const Offset(0.0, 32.0),
+              child: title),
         ],
       ),
     );

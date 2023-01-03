@@ -1,57 +1,106 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 
-class AyahPlayer extends StatefulWidget {
+class AyahPlayer extends StatelessWidget {
   final AssetsAudioPlayer audioPlayer;
-  const AyahPlayer({super.key, required this.audioPlayer});
-  @override
-  State<AyahPlayer> createState() => _AyahPlayerState();
-}
+  final bool pinned;
+  final void Function() pinning;
+  const AyahPlayer(
+      {super.key,
+      required this.audioPlayer,
+      this.pinned = false,
+      required this.pinning});
 
-class _AyahPlayerState extends State<AyahPlayer> {
   @override
   Widget build(BuildContext context) {
     return PlayerBuilder.playerState(
-      player: widget.audioPlayer,
+      player: audioPlayer,
       builder: (context, playerState) => Padding(
         padding: const EdgeInsets.all(3),
         child: Card(
-          child: Column(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: StreamBuilder<Playing?>(
-                    stream: widget.audioPlayer.current,
-                    builder: (context, currentSnap) {
-                      final current = currentSnap.data;
-                      return currentSnap.hasData
-                          ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
+              InkWell(
+                  onTap: () async {
+                    await audioPlayer.playOrPause();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: playerState == PlayerState.play
+                        ? const Icon(
+                            Icons.pause,
+                            color: Colors.green,
+                          )
+                        : const Icon(
+                            Icons.play_arrow,
+                          ),
+                  )),
+              StreamBuilder<LoopMode>(
+                  stream: audioPlayer.loopMode,
+                  builder: (context, snapshot) {
+                    return InkWell(
+                      onTap: () async {
+                        if (!snapshot.hasData) return;
+                        if (snapshot.data == LoopMode.none) {
+                          await audioPlayer.setLoopMode(LoopMode.single);
+                        } else {
+                          await audioPlayer.setLoopMode(LoopMode.none);
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        child: snapshot.data == LoopMode.none
+                            ? const Icon(
+                                Icons.repeat_one,
+                                color: Colors.yellow,
+                              )
+                            : const Icon(
+                                Icons.repeat,
+                                color: Colors.green,
+                              ),
+                      ),
+                    );
+                  }),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: StreamBuilder<Playing?>(
+                      stream: audioPlayer.current,
+                      builder: (context, currentSnap) {
+                        final current = currentSnap.data;
+                        return currentSnap.hasData
+                            ? Text(
                                 current!.audio.audio.metas.title!,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "-",
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                            );
-                    }),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )
+                            : Text(
+                                Localizations.localeOf(context).languageCode ==
+                                        'ar'
+                                    ? 'اضغط الاية للقرائة'
+                                    : 'Tap Ayah to read',
+                              );
+                      }),
+                ),
               ),
-              IconButton(
-                icon: playerState == PlayerState.play
-                    ? const Icon(Icons.pause)
-                    : const Icon(Icons.play_arrow),
-                onPressed: () async {
-                  await widget.audioPlayer.playOrPause();
-                  setState(() {});
-                },
+              InkWell(
+                onTap: pinning,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  child: pinned
+                      ? const Icon(
+                          Icons.push_pin_rounded,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.push_pin_outlined,
+                        ),
+                ),
               )
             ],
           ),

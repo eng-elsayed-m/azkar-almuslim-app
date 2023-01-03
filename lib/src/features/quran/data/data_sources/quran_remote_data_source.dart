@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:azkar/src/features/quran/data/models/pin_model.dart';
 import 'package:azkar/src/features/quran/data/models/surah_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/exceptions.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +9,8 @@ import '../models/surahs_model.dart';
 
 abstract class QuranDataSource {
   Future<Surahs> fetchSurahs();
+  Future<PinModel?> setPin(PinModel pin);
+  Future<PinModel?> getPin();
   Future<Surah> fetchSurah(
       {required int number,
       required String audioEdition,
@@ -84,5 +88,23 @@ class QuranDataSourceImpl implements QuranDataSource {
     } else {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<PinModel?> setPin(PinModel pin) async {
+    final sh = await SharedPreferences.getInstance();
+    print(pin.toJson());
+    sh.setString("pin", jsonEncode(pin.toJson()));
+    return pin;
+  }
+
+  @override
+  Future<PinModel?> getPin() async {
+    final sh = await SharedPreferences.getInstance();
+    final pinString = sh.getString('pin');
+    if (pinString == null) return null;
+    final jsonPin = jsonDecode(pinString);
+    print(pinString);
+    return PinModel.fromJson(jsonPin);
   }
 }

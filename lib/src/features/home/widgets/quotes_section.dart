@@ -31,45 +31,34 @@ class _QuotesSectionState extends State<QuotesSection> {
             return const Center(child: AppIndicator());
           } else if (state is QuotesLoadSuccess) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                TitleCard(
-                  title: TextField(
-                    // textAlign: TextAlign.center,
-                    textAlignVertical: TextAlignVertical.center,
-                    style: theme.textTheme.headlineSmall!.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: theme.scaffoldBackgroundColor,
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: TextField(
+                      // textAlign: TextAlign.center,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: theme.textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: theme.scaffoldBackgroundColor,
+                      ),
+                      onChanged: (value) => setState(() {
+                        query = value;
+                      }),
+                      decoration: InputDecoration(
+                          hintText: "الأذكــــــار",
+                          border: InputBorder.none,
+                          suffixIcon: Icon(
+                            Icons.search,
+                            size: 35,
+                            color: theme.primaryColor,
+                          )),
                     ),
-                    onChanged: (value) => setState(() {
-                      query = value;
-                    }),
-                    decoration: InputDecoration(
-                        hintText: "الأذكــــــار",
-                        hintStyle: theme.textTheme.headlineSmall!.copyWith(
-                          fontWeight: FontWeight.w900,
-                          fontFamily: "A-Hemmat",
-                          color: theme.scaffoldBackgroundColor,
-                        ),
-                        border: InputBorder.none,
-                        suffixIcon: Icon(
-                          Icons.search,
-                          size: 35,
-                          color: theme.scaffoldBackgroundColor,
-                        )),
                   ),
                 ),
-                EntranceFader(
-                  delay: const Duration(milliseconds: 100),
-                  duration: const Duration(milliseconds: 350),
-                  offset: const Offset(0.0, 32.0),
-                  child: Divider(
-                    color: Theme.of(context).primaryColor,
-                    thickness: 3,
-                    height: 0,
-                  ),
-                ),
+
                 Expanded(
                   child: EntranceFader(
                     delay: const Duration(milliseconds: 100),

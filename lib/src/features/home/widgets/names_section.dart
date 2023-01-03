@@ -15,8 +15,6 @@ class NamesSection extends StatefulWidget {
 }
 
 class _NamesSectionState extends State<NamesSection> {
-  String query = "";
-
   @override
   Widget build(BuildContext context) {
     final dSize = MediaQuery.of(context).size;

@@ -36,76 +36,79 @@ class _EditionsListState extends State<EditionsList> {
             audioEdition ??= state.edition
                 .firstWhere((element) => element.identifier == 'ar.alafasy');
           }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              DropdownButton<EditionEntity>(
-                  icon: const Icon(Icons.language),
-                  value: textEdition,
-                  alignment: Alignment.center,
-                  isDense: true,
-                  isExpanded: true,
-                  hint: const Text(
-                    "Language",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  items: state is EditionLoadedState
-                      ? state.edition
-                          .where((element) {
-                            return element.format == "text";
-                          })
-                          .map((edition) => DropdownMenuItem<EditionEntity>(
-                                alignment: Alignment.center,
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                DropdownButton<EditionEntity>(
+                    icon: const Icon(Icons.language),
+                    value: textEdition,
+                    alignment: Alignment.center,
+                    elevation: 5,
+                    isDense: true,
+                    isExpanded: true,
+                    hint: const Text(
+                      "Language",
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    items: state is EditionLoadedState
+                        ? state.edition
+                            .where((element) {
+                              return element.format == "text";
+                            })
+                            .map((edition) => DropdownMenuItem<EditionEntity>(
+                                  value: edition,
+                                  child: Text(
+                                      "${edition.name} - ${edition.type} - ${edition.language!.toUpperCase()}",
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                      overflow: TextOverflow.ellipsis),
+                                ))
+                            .toList()
+                        : <DropdownMenuItem<EditionEntity>>[],
+                    onChanged: (value) {
+                      setState(() {
+                        textEdition = value;
+                      });
+                      onChange();
+                    }),
+                const SizedBox(height: 20),
+                DropdownButton<EditionEntity>(
+                    icon: const Icon(Icons.audiotrack_outlined),
+                    value: audioEdition,
+                    isDense: true,
+                    elevation: 5,
+                    alignment: Alignment.center,
+                    isExpanded: true,
+                    hint: const Text(
+                      "Audio",
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    items: state is EditionLoadedState
+                        ? state.edition
+                            .where((element) {
+                              return element.format == "audio";
+                            })
+                            .map((edition) => DropdownMenuItem<EditionEntity>(
                                 value: edition,
                                 child: Text(
-                                    "${edition.name} - ${edition.type} - ${edition.language!.toUpperCase()}",
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                    overflow: TextOverflow.ellipsis),
-                              ))
-                          .toList()
-                      : <DropdownMenuItem<EditionEntity>>[],
-                  onChanged: (value) {
-                    setState(() {
-                      textEdition = value;
-                    });
-                    onChange();
-                  }),
-              const SizedBox(height: 20),
-              DropdownButton<EditionEntity>(
-                  icon: const Icon(Icons.audiotrack_outlined),
-                  value: audioEdition,
-                  isDense: true,
-                  alignment: Alignment.center,
-                  isExpanded: true,
-                  hint: const Text(
-                    "Audio",
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  items: state is EditionLoadedState
-                      ? state.edition
-                          .where((element) {
-                            return element.format == "audio";
-                          })
-                          .map((edition) => DropdownMenuItem<EditionEntity>(
-                              alignment: Alignment.center,
-                              value: edition,
-                              child: Text(
-                                "${edition.name} - ${edition.type} - ${edition.language!.toUpperCase()}",
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                                overflow: TextOverflow.ellipsis,
-                              )))
-                          .toList()
-                      : <DropdownMenuItem<EditionEntity>>[],
-                  onChanged: (value) {
-                    setState(() {
-                      audioEdition = value;
-                    });
-                    onChange();
-                  }),
-            ],
+                                  "${edition.name} - ${edition.type} - ${edition.language!.toUpperCase()}",
+                                  maxLines: 1,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  overflow: TextOverflow.ellipsis,
+                                )))
+                            .toList()
+                        : <DropdownMenuItem<EditionEntity>>[],
+                    onChanged: (value) {
+                      setState(() {
+                        audioEdition = value;
+                      });
+                      onChange();
+                    }),
+              ],
+            ),
           );
         },
       ),

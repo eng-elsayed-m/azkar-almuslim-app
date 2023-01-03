@@ -28,7 +28,7 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
         .loadString("assets/json/names_of_allah.json")
         .then((data) {
       List<dynamic>? response = json.decode(data);
-      debugPrint(response.toString());
+      // debugPrint(response.toString());
       if (response == null) {
         emit(NamesLoadFailed(Exception("Couldn't load categories")));
       }

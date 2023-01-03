@@ -1,15 +1,19 @@
-import 'package:azkar/src/core/utils/configs/configs.dart';
 import 'package:azkar/src/features/quran/domain/entities/surahs.dart';
 import 'package:azkar/src/features/quran/presentation/pages/surah_screen.dart';
 import 'package:flutter/material.dart';
 
 class SurahsMeta extends StatelessWidget {
   final ReferencesEntity reference;
-  const SurahsMeta({super.key, required this.reference});
+  final bool pinned;
+  const SurahsMeta({super.key, required this.reference, this.pinned = false});
 
   @override
   Widget build(BuildContext context) {
     final dSize = MediaQuery.of(context).size;
+    String rType(String type) {
+      return type == "Meccan" ? 'مكية' : "مدنية";
+    }
+
     return InkWell(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => SurahScreen(ref: reference),
@@ -24,7 +28,8 @@ class SurahsMeta extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/ayah.png',
-                    width: dSize.width * 0.2,
+                    width: dSize.width * 0.18,
+                    color: pinned ? Colors.green.withOpacity(0.6) : null,
                   ),
                   Text(
                     reference.number.toString(),
@@ -41,10 +46,20 @@ class SurahsMeta extends StatelessWidget {
                     ),
               ),
               Spacer(),
-              Text(
-                "عدد اللآيات ${reference.numberOfAyahs..toString()}",
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontFamily: "AmiriQuran", fontWeight: FontWeight.w900),
+              Card(
+                child: Text(
+                  "${reference.numberOfAyahs..toString()} أية",
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontFamily: "AmiriQuran", fontWeight: FontWeight.w900),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Text(
+                  rType(reference.revelationType!),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontFamily: "AmiriQuran", fontWeight: FontWeight.w900),
+                ),
               ),
             ],
           )),
