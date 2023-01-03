@@ -35,7 +35,6 @@ class _SurahScreenState extends State<SurahScreen> {
             "surah": widget.ref.number,
             "title": widget.ref.name,
           })),
-      loopMode: LoopMode.single,
       autoStart: true,
       showNotification: true,
       notificationSettings: const NotificationSettings(
@@ -142,7 +141,9 @@ class _SurahScreenState extends State<SurahScreen> {
                                                                       FontWeight
                                                                           .bold,
                                                                   backgroundColor: pinState
-                                                                          is PinLoadedState
+                                                                              is PinLoadedState &&
+                                                                          pinState.pin !=
+                                                                              null
                                                                       ? pinState.pin!.ayah == ayah.numberInSurah &&
                                                                               pinState.pin!.surah == widget.ref.number
                                                                           ? Colors.green.withOpacity(0.5)
@@ -195,18 +196,14 @@ class _SurahScreenState extends State<SurahScreen> {
                                         return;
                                       }
                                       if (pinState is PinLoadedState) {
-                                        print(pinState.pin!.surah.toString() +
-                                            widget.ref.number.toString());
-                                        if (pinState.pin!.ayah ==
+                                        if (pinState.pin != null &&
+                                            pinState.pin!.ayah ==
                                                 selectedAyah!.numberInSurah &&
                                             widget.ref.number ==
                                                 pinState.pin!.surah) {
-                                          context.read<PinBloc>().add(
-                                              SetPinEvent(PinModel(
-                                                  ayah: selectedAyah!
-                                                      .numberInSurah,
-                                                  surah: widget.ref.number,
-                                                  title: widget.ref.name)));
+                                          context
+                                              .read<PinBloc>()
+                                              .add(SetPinEvent(PinModel()));
                                         } else {
                                           context.read<PinBloc>().add(
                                               SetPinEvent(PinModel(
@@ -219,6 +216,7 @@ class _SurahScreenState extends State<SurahScreen> {
                                     },
                                     audioPlayer: audioPlayer!,
                                     pinned: pinState is PinLoadedState &&
+                                            pinState.pin != null &&
                                             selectedAyah != null
                                         ? (pinState.pin!.ayah ==
                                                 selectedAyah!.numberInSurah &&

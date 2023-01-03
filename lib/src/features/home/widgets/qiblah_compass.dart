@@ -36,7 +36,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const AppIndicator();
+            return const LinearProgressIndicator();
           }
           if (snapshot.data!.enabled == true) {
             switch (snapshot.data!.status) {
@@ -104,29 +104,34 @@ class QiblahCompassWidget extends StatelessWidget {
     return StreamBuilder(
       stream: FlutterQiblah.qiblahStream,
       builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const AppIndicator();
-        }
-
-        final qiblahDirection = snapshot.data!;
-
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Transform.rotate(
-              angle: (qiblahDirection.direction * (pi / 180) * -1),
-              child: _compassSvg,
-            ),
-            Transform.rotate(
-              angle: (qiblahDirection.qiblah * (pi / 180) * -1),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey.shade300,
+                boxShadow: const [BoxShadow(offset: Offset(0, 8.0))]),
+            child: Stack(
               alignment: Alignment.center,
-              child: _needleSvg,
+              fit: StackFit.loose,
+              children: <Widget>[
+                Transform.rotate(
+                  angle: snapshot.hasData
+                      ? (snapshot.data!.direction * (pi / 180) * -1)
+                      : 0,
+                  child: _compassSvg,
+                ),
+                Transform.rotate(
+                  angle: snapshot.hasData
+                      ? (snapshot.data!.qiblah * (pi / 180) * -1)
+                      : 0,
+                  alignment: Alignment.center,
+                  child: _needleSvg,
+                ),
+              ],
             ),
-            Positioned(
-              bottom: 8,
-              child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),
-            )
-          ],
+          ),
         );
       },
     );

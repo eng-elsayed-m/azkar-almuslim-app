@@ -30,7 +30,8 @@ class SurahsPage extends StatelessWidget {
                         ...surahState.surahs.references!
                             .map((reference) => SurahsMeta(
                                   reference: reference,
-                                  pinned: pinState is PinLoadedState
+                                  pinned: pinState is PinLoadedState &&
+                                          pinState.pin != null
                                       ? pinState.pin!.surah == reference.number
                                       : false,
                                 ))

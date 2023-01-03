@@ -5,6 +5,7 @@ import 'package:azkar/src/core/utils/nav.dart';
 import 'package:azkar/src/features/home/widgets/qiblaa.dart';
 import 'package:azkar/src/features/home/widgets/names_section.dart';
 import 'package:azkar/src/features/home/widgets/prayer_times_widget.dart';
+import 'package:azkar/src/features/home/widgets/qiblah_compass.dart';
 import 'package:azkar/src/features/home/widgets/quotes_section.dart';
 import 'package:azkar/src/features/quran/presentation/pages/surahs_screen.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -101,7 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Expanded(
                     child: Image.asset(
                       'assets/images/header-bg (1).png',
-                      fit: BoxFit.fitWidth,
+                      width: size.width,
+                      fit: BoxFit.cover,
                       color: theme.scaffoldBackgroundColor,
                     ),
                   )),
@@ -141,13 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const PrayersTimesWidget(),
-                  const NamesSection(),
-                  Expanded(
-                      child: Qiblaa(
-                    qibla: qibla,
-                  )),
+                children: const [
+                  PrayersTimesWidget(),
+                  NamesSection(),
+                  Expanded(child: QiblahCompass()),
                 ],
               ),
               const QuotesSection(),
