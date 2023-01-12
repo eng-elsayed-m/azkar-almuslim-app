@@ -1,9 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
+const _defaultTransition = PageTransitionType.scale;
+const _alignment = Alignment.center;
+const _duration = Duration(milliseconds: 400);
 
 class NV {
   static void nextScreen(context, page) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+    Navigator.push(
+        context,
+        PageTransition(
+            child: page,
+            duration: _duration,
+            alignment: _alignment,
+            type: _defaultTransition));
   }
 
   static void nextScreenOS(context, page) {
@@ -11,13 +21,24 @@ class NV {
   }
 
   static void nextScreenCloseOthers(context, page) {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => page), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(
+            child: page,
+            duration: _duration,
+            alignment: _alignment,
+            type: _defaultTransition),
+        (route) => false);
   }
 
   static void nextScreenReplace(context, page) {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => page));
+        context,
+        PageTransition(
+            child: page,
+            duration: _duration,
+            alignment: _alignment,
+            type: _defaultTransition));
   }
 
   // Named
@@ -42,7 +63,12 @@ class NV {
   static void nextScreenPopup(context, page) {
     Navigator.push(
       context,
-      MaterialPageRoute(fullscreenDialog: true, builder: (context) => page),
+      PageTransition(
+          child: page,
+          duration: _duration,
+          alignment: _alignment,
+          type: _defaultTransition,
+          fullscreenDialog: true),
     );
   }
 }

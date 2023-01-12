@@ -42,13 +42,12 @@ class _QuotesSectionState extends State<QuotesSection> {
                       textAlignVertical: TextAlignVertical.center,
                       style: theme.textTheme.headlineSmall!.copyWith(
                         fontWeight: FontWeight.w900,
-                        color: theme.scaffoldBackgroundColor,
                       ),
                       onChanged: (value) => setState(() {
                         query = value;
                       }),
                       decoration: InputDecoration(
-                          hintText: "الأذكــــــار",
+                          hintText: "الأذكــار",
                           border: InputBorder.none,
                           suffixIcon: Icon(
                             Icons.search,

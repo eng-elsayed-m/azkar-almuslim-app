@@ -30,15 +30,10 @@ class CategoryCard extends StatelessWidget {
                 // height: AppDimensions.normalize(200),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppDimensions.normalize(33)),
+                padding: EdgeInsets.all(AppDimensions.normalize(50)),
                 child: Text(
                   category.category!,
-                  textWidthBasis: TextWidthBasis.parent,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.w900,
-                      fontFamily: "A-Hemmat",
-                      color: Colors.green.shade500),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                   softWrap: true,
                 ),

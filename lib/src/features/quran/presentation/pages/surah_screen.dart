@@ -1,5 +1,4 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:azkar/src/core/utils/configs/app_theme.dart';
 import 'package:azkar/src/core/widgets/app_loader.dart';
 import 'package:azkar/src/features/quran/data/models/pin_model.dart';
 import 'package:azkar/src/features/quran/data/models/surah_model.dart';
@@ -60,7 +59,8 @@ class _SurahScreenState extends State<SurahScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${widget.ref.number}- ${widget.ref.name}  (${rType(widget.ref.revelationType!)})"),
+          "(${widget.ref.number}) (${rType(widget.ref.revelationType!)})",
+        ),
       ),
       body: WillPopScope(
         onWillPop: () async {

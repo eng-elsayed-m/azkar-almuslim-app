@@ -15,13 +15,13 @@ class QuotesScreen extends StatefulWidget {
 }
 
 class _QuotesScreenState extends State<QuotesScreen> {
-  final audioPlayer = AssetsAudioPlayer();
-
+  AssetsAudioPlayer? audioPlayer;
   Future play(int index) async {
-    if (audioPlayer.currentLoopMode == LoopMode.playlist) {
-      await audioPlayer.playlistPlayAtIndex(index);
+    audioPlayer = AssetsAudioPlayer.withId(widget.category.id.toString());
+    if (audioPlayer!.currentLoopMode == LoopMode.playlist) {
+      await audioPlayer!.playlistPlayAtIndex(index);
     } else {
-      await audioPlayer.open(
+      await audioPlayer!.open(
         Playlist(
             audios: widget.category.array!
                 .map((e) => Audio("assets${e.audio}",
@@ -38,7 +38,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
             stopEnabled: true),
         playInBackground: PlayInBackground.enabled,
       );
-      await audioPlayer.playlistPlayAtIndex(index);
+      await audioPlayer!.playlistPlayAtIndex(index);
     }
     setState(() {});
   }
@@ -46,45 +46,33 @@ class _QuotesScreenState extends State<QuotesScreen> {
   @override
   void initState() {
     super.initState();
-    initialCat();
-  }
-
-  initialCat() async {
-    await audioPlayer.open(
-        Audio(
-          'assets${widget.category.audio}',
-          metas: Metas(title: widget.category.category, album: 'كاملة'),
-        ),
-        autoStart: true,
-        playInBackground: PlayInBackground.disabledRestoreOnForeground);
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        audioPlayer.dispose();
+        if (audioPlayer != null) audioPlayer!.dispose();
         return Future.value(true);
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text('${widget.category.category}',
-              style: const TextStyle(
-                  fontFamily: "A-Hemmat",
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold)),
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(100),
-              child: PlayerWidget(audioPlayer: audioPlayer)),
+              style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
+        bottomNavigationBar: audioPlayer != null
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(100),
+                child: PlayerWidget(audioPlayer: audioPlayer!))
+            : null,
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: widget.category.array!
               .map((element) => QuoteCard(
                     quote: element,
-                    isPlaying:
-                        audioPlayer.getCurrentAudioTitle == element.filename,
+                    isPlaying: audioPlayer == null
+                        ? false
+                        : audioPlayer!.getCurrentAudioTitle == element.filename,
                     play: () async {
                       await play(widget.category.array!.indexWhere(
                           (selectedAudio) => element.id == selectedAudio.id));

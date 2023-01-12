@@ -9,34 +9,24 @@ class TitleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dSize = MediaQuery.of(context).size;
-    final theme = Theme.of(context);
-
     return Padding(
-      padding: EdgeInsets.only(
-        left: AppDimensions.normalize(150),
-        bottom: AppDimensions.normalize(10),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        fit: StackFit.loose,
-        children: [
-          EntranceFader(
-            delay: const Duration(milliseconds: 100),
-            duration: const Duration(milliseconds: 350),
-            offset: const Offset(0.0, 32.0),
-            child: Image.asset(
-              'assets/images/title-card.png',
-              fit: BoxFit.cover,
-              width: dSize.width * 0.5,
-            ),
-          ),
-          EntranceFader(
+        padding: EdgeInsets.only(
+          left: AppDimensions.normalize(10),
+        ),
+        child: Container(
+          padding: EdgeInsets.all(dSize.width * 0.07),
+          width: dSize.width * 0.55,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('assets/images/title-card.png'),
+            fit: BoxFit.fitWidth,
+          )),
+          alignment: Alignment.centerLeft,
+          child: EntranceFader(
               delay: const Duration(milliseconds: 100),
               duration: const Duration(milliseconds: 350),
               offset: const Offset(0.0, 32.0),
               child: title),
-        ],
-      ),
-    );
+        ));
   }
 }

@@ -88,12 +88,13 @@ class QuoteCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
                       quote.text!,
+                      textScaleFactor: 1.2,
                       textAlign: TextAlign.center,
                       textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                          fontSize: AppDimensions.font(12),
-                          fontFamily: 'Aldhabi',
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          height: 2,
+                          fontFamily: "AmiriQuran",
+                          fontWeight: FontWeight.w900),
                     ),
                   ),
                   Image.asset(

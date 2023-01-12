@@ -1,3 +1,4 @@
+import 'package:azkar/src/core/utils/configs/core_theme.dart';
 import 'package:azkar/src/features/home/home_screen.dart';
 import 'package:azkar/src/features/intro/intro.dart';
 import 'package:azkar/src/features/settings/settings_controller.dart';
@@ -57,20 +58,22 @@ class _MyAppState extends State<MyApp> {
           locale: _locale,
           onGenerateTitle: (BuildContext context) =>
               AppLocalizations.of(context)!.appTitle,
-          theme: ThemeData(
-              primaryColor: Colors.green.shade500,
-              appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade500),
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Colors.green.shade500)))),
-          darkTheme: ThemeData.dark().copyWith(
-              primaryColor: Colors.green.shade900,
-              appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade900),
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Colors.green.shade900)))),
+          theme: themeLight,
+          // ThemeData(
+          //     primaryColor: Colors.green.shade500,
+          //     appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade500),
+          //     elevatedButtonTheme: ElevatedButtonThemeData(
+          //         style: ButtonStyle(
+          //             backgroundColor:
+          //                 MaterialStatePropertyAll(Colors.green.shade500)))),
+          darkTheme: themeDark,
+          // ThemeData.dark().copyWith(
+          //     primaryColor: Colors.green.shade900,
+          //     appBarTheme: AppBarTheme(backgroundColor: Colors.green.shade900),
+          //     elevatedButtonTheme: ElevatedButtonThemeData(
+          //         style: ButtonStyle(
+          //             backgroundColor:
+          //                 MaterialStatePropertyAll(Colors.green.shade900)))),
           themeMode: widget.settingsController.themeMode,
           onGenerateRoute: (RouteSettings routeSettings) {
             return MaterialPageRoute<void>(

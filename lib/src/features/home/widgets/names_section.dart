@@ -25,28 +25,24 @@ class _NamesSectionState extends State<NamesSection> {
           if (state is NamesLoading) {
             return const Center(child: AppIndicator());
           } else if (state is NamesLoadSuccess) {
-            return SizedBox(
-              height: dSize.height * 0.2,
-              child: EntranceFader(
-                delay: const Duration(milliseconds: 100),
-                duration: const Duration(milliseconds: 350),
-                offset: const Offset(0.0, 50.0),
-                child: Material(
-                  elevation: 5,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    addAutomaticKeepAlives: true,
-                    children: state.names
-                        .map((e) => EntranceFader(
-                            delay: Duration(
-                                milliseconds:
-                                    200 + (100 * state.names.indexOf(e))),
-                            duration: const Duration(milliseconds: 350),
-                            offset: const Offset(0.0, 50.0),
-                            child: NameCard(name: e)))
-                        .toList(),
-                  ),
-                ),
+            return Container(
+              decoration: BoxDecoration(
+                  border: Border.symmetric(horizontal: BorderSide())),
+              height: dSize.height * 0.22,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+
+                addAutomaticKeepAlives: true,
+                // padding: EdgeInsets.symmetric(horizontal: 1),
+                children: state.names
+                    .map((e) => EntranceFader(
+                        delay: Duration(
+                            milliseconds: 100 + (20 * state.names.indexOf(e))),
+                        duration: const Duration(milliseconds: 350),
+                        offset: const Offset(0.0, 50.0),
+                        child: NameCard(name: e)))
+                    .toList(),
               ),
             );
           } else if (state is NamesLoadFailed) {

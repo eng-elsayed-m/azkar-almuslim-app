@@ -4,7 +4,7 @@ description: A new Flutter project.
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.2+2
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -27,6 +27,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   intl: ^0.17.0
   location: ^4.4.0
+  page_transition: ^2.0.9
   shared_preferences: ^2.0.15
   system_alert_window: ^1.2.0
   workmanager: ^0.5.1
@@ -67,20 +68,12 @@ flutter:
     - assets/
 
   fonts:
-    - family: A-Hemmat
-      fonts:
-        - asset: assets/fonts/al-hemmat.ttf
-
     - family: AmiriQuran
       fonts:
         - asset: assets/fonts/AmiriQuran-Regular.ttf
 
-    - family: Aldhabi
+    - family: ReemKufi
       fonts:
-        - asset: assets/fonts/aldhabi.ttf
-
-    - family: QuranSurah
-      fonts:
-        - asset: assets/fonts/QuranSurah.ttf
+        - asset: assets/fonts/ReemKufi.ttf
 
         

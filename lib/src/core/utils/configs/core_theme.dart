@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
-const fontFamily = 'Poppins';
+const fontFamily = 'ReemKufi';
 
 final themeLight = ThemeData(
-  primaryColorLight: const Color(0xffC0392B),
+  primaryColorLight: const Color(0xff509B61),
+  appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xff509B61),
+      titleTextStyle: TextStyle(color: Colors.white, fontFamily: fontFamily)),
   brightness: Brightness.light,
-  primaryColor: const Color(0xffC0392B),
-  highlightColor: Colors.black,
-  canvasColor: Colors.white,
+  primaryColor: const Color(0xff509B61),
   fontFamily: fontFamily,
-  backgroundColor: Colors.white,
-  splashColor: Colors.transparent,
-  scaffoldBackgroundColor: Colors.white,
-  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red).copyWith(
+  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green).copyWith(
     secondary: Colors.black,
     brightness: Brightness.light,
   ),
@@ -20,16 +18,14 @@ final themeLight = ThemeData(
 
 final themeDark = ThemeData(
   brightness: Brightness.dark,
-  primaryColorDark: const Color(0xffC0392B),
-  primaryColor: const Color(0xffC0392B),
-  highlightColor: const Color(0xffC0392B),
-  canvasColor: Colors.white,
+  primaryColorDark: const Color(0xff2C4833),
   fontFamily: fontFamily,
-  splashColor: Colors.transparent,
-  backgroundColor: Colors.grey[800],
-  scaffoldBackgroundColor: Colors.black,
-  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red).copyWith(
-    secondary: const Color(0xffC0392B),
+  appBarTheme: const AppBarTheme(
+      backgroundColor: const Color(0xff2C4833),
+      titleTextStyle: TextStyle(color: Colors.white, fontFamily: fontFamily)),
+  primaryColor: const Color(0xff2C4833),
+  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green).copyWith(
+    secondary: const Color(0xff2C4833),
     brightness: Brightness.dark,
   ),
 );

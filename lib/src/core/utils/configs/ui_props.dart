@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'app_dimensions.dart';
-import 'app_theme.dart';
 
 abstract class UIProps {
   // Animations
@@ -43,7 +41,7 @@ abstract class UIProps {
       borderRadius: UIProps.buttonRadius,
       border: Border.all(
         width: 1.4,
-        color: AppTheme.c!.primary!,
+        // color: AppTheme.c!.primary!,
       ),
     );
     btnPadSm = EdgeInsets.symmetric(
@@ -59,7 +57,7 @@ abstract class UIProps {
   static initShadows() {
     cardShadow = [
       BoxShadow(
-        color: AppTheme.c!.shadowSub!,
+        // color: AppTheme.c!.shadowSub!,
         blurRadius: 6,
       ),
     ];
@@ -69,7 +67,7 @@ abstract class UIProps {
     boxCard = BoxDecoration(
       borderRadius: cardRadius,
       boxShadow: cardShadow,
-      color: AppTheme.c!.background,
+      // color: AppTheme.c!.background,
     );
   }
 }

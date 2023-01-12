@@ -362,7 +362,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X78838ZLN2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Azkar Almuslim - أذكار المسلم";
+				INFOPLIST_KEY_CFBundleDisplayName = "اذكار المسلم";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -500,7 +500,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X78838ZLN2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Azkar Almuslim - أذكار المسلم";
+				INFOPLIST_KEY_CFBundleDisplayName = "اذكار المسلم";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -530,7 +530,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X78838ZLN2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Azkar Almuslim - أذكار المسلم";
+				INFOPLIST_KEY_CFBundleDisplayName = "اذكار المسلم";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

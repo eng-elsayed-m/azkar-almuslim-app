@@ -1,4 +1,6 @@
 import 'package:adhan/adhan.dart';
+import 'package:azkar/src/core/utils/configs/app_dimensions.dart';
+import 'package:azkar/src/core/widgets/app_loader.dart';
 import 'package:azkar/src/features/home/widgets/title_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -73,49 +75,47 @@ class _PrayersTimesWidgetState extends State<PrayersTimesWidget> {
         TitleCard(
             title: Text(
           'مواقيت الصلاة',
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: Colors.white60),
         )),
         Builder(
           builder: (BuildContext context) {
             if (prayerTimes != null) {
               return SizedBox(
-                height: 50,
+                height: AppDimensions.normalize(40),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    Chip(
-                      label: Text(
-                          'الفجر : ${DateFormat.jm().format(prayerTimes!.fajr)}'),
-                    ),
+                    TimeCard(
+                        text:
+                            'الفجر : ${DateFormat.jm('ar').format(prayerTimes!.fajr)}'),
                     const SizedBox(width: 5),
-                    Chip(
-                        label: Text(
-                            'الشروق : ${DateFormat.jm().format(prayerTimes!.sunrise)}')),
-                    const SizedBox(width: 5),
-                    Chip(
-                      label: Text(
-                          'الضهر: ${DateFormat.jm().format(prayerTimes!.dhuhr)}'),
-                    ),
-                    const SizedBox(width: 5),
-                    Chip(
-                      label: Text(
-                          'العصر: ${DateFormat.jm().format(prayerTimes!.asr)}'),
-                    ),
-                    const SizedBox(width: 5),
-                    Chip(
-                      label: Text(
-                          'المغرب: ${DateFormat.jm().format(prayerTimes!.maghrib)}'),
-                    ),
-                    const SizedBox(width: 5),
-                    Chip(
-                      label: Text(
-                          'العشاء: ${DateFormat.jm().format(prayerTimes!.isha)}'),
-                    ),
-                    const SizedBox(width: 5),
-                    Chip(
-                      label: Text(
-                          'العشاء: ${DateFormat.jm().format(prayerTimes!.isha)}'),
-                    ),
+                    TimeCard(
+                        text:
+                            'الشروق  - ${DateFormat.jm("ar").format(prayerTimes!.sunrise)}'),
+                    TimeCard(
+                        text:
+                            'الضهر ${DateFormat.jm('ar').format(prayerTimes!.dhuhr)}'),
+                    TimeCard(
+                        text:
+                            'العصر ${DateFormat.jm('ar').format(prayerTimes!.asr)}'),
+                    TimeCard(
+                        text:
+                            'المغرب ${DateFormat.jm('ar').format(prayerTimes!.maghrib)}'),
+                    TimeCard(
+                        text:
+                            'العشاء ${DateFormat.jm('ar').format(prayerTimes!.isha)}'),
+                    TimeCard(
+                        text:
+                            'العشاء ${DateFormat.jm('ar').format(prayerTimes!.isha)}'),
+                    TimeCard(
+                        text:
+                            'منتصف الليل ${sunnahTimes == null ? '-' : DateFormat.jm('ar').format(sunnahTimes!.middleOfTheNight)}'),
+                    TimeCard(
+                        text:
+                            'الربع الاخير : ${sunnahTimes == null ? '-' : DateFormat.jm('ar').format(sunnahTimes!.lastThirdOfTheNight)}'),
                   ],
                 ),
               );
@@ -124,27 +124,41 @@ class _PrayersTimesWidgetState extends State<PrayersTimesWidget> {
               return Text(locationError!);
             }
             return SizedBox(
-                height: 50,
-                child:
-                    Center(child: const Text('Waiting for Your Location...')));
+                height: AppDimensions.normalize(40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'جارى تحديد موقعك',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    AppIndicator()
+                  ],
+                ));
           },
         ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Chip(
-                label: Text(
-                    'سنة منتصف الليل: ${sunnahTimes == null ? '-' : DateFormat.jm().format(sunnahTimes!.middleOfTheNight)}'),
-              ),
-            ),
-            Chip(
-              label: Text(
-                  'سنة الربع الاخير : ${sunnahTimes == null ? '-' : DateFormat.jm().format(sunnahTimes!.lastThirdOfTheNight)}'),
-            ),
-          ],
-        ),
       ],
+    );
+  }
+}
+
+class TimeCard extends StatelessWidget {
+  const TimeCard({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Chip(
+          label: Text(
+        text,
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontFamily: ""),
+      )),
     );
   }
 }

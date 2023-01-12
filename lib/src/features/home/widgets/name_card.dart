@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:azkar/src/core/models/name_model.dart';
-import 'package:azkar/src/core/utils/configs/app_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class NameCard extends StatefulWidget {
@@ -67,57 +65,6 @@ class _NameCardState extends State<NameCard> {
   @override
   Widget build(BuildContext context) {
     return switcherWidget();
-    // return InkWell(
-    //     onTap: () {},
-    //     child: EntranceFader(
-    //         duration: const Duration(milliseconds: 300),
-    //         delay: const Duration(milliseconds: 100),
-    //         offset: const Offset(50.0, 0.0),
-    //         child: Container(
-    //           width: AppDimensions.normalize(100),
-    //           height: AppDimensions.normalize(100),
-    //           decoration: BoxDecoration(
-    //             shape: BoxShape.circle,
-    //             // border: Border.all(
-    //             //     strokeAlign: StrokeAlign.outside,
-    //             //     width: 3,
-    //             //     style: BorderStyle.solid),
-    //             boxShadow: [
-    //               BoxShadow(
-    //                   offset: Offset(5.0, 5.0),
-    //                   color: Colors.amber.shade800.withOpacity(0.3))
-    //             ],
-    //
-    //             gradient:
-    //                 RadialGradient(center: Alignment.center, stops: const [
-    //               0.4,
-    //               0.6,
-    //               0.8,
-    //               0.9,
-    //             ], colors: [
-    //               Colors.white,
-    //               Colors.green.shade100,
-    //               Colors.green.shade200,
-    //               Colors.green.shade300,
-    //             ]),
-    //           ),
-    //           child: Padding(
-    //             padding: EdgeInsets.all(AppDimensions.normalize(15)),
-    //             child: FittedBox(
-    //               child: Text(
-    //                 widget.name.name!,
-    //                 textWidthBasis: TextWidthBasis.parent,
-    //                 style: TextStyle(
-    //                     fontWeight: FontWeight.w900,
-    //                     shadows: const [Shadow(offset: Offset(0.0, 1.0))],
-    //                     fontFamily: "Aldhabi",
-    //                     color: Colors.green.shade500),
-    //                 textAlign: TextAlign.center,
-    //                 softWrap: true,
-    //               ),
-    //             ),
-    //           ),
-    //         )));
   }
 }
 
@@ -135,52 +82,44 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
         onTap: onTapped,
-        child: Container(
-          width: AppDimensions.normalize(170),
-          decoration: !front
-              ? null
-              : BoxDecoration(
-                  shape: front ? BoxShape.circle : BoxShape.rectangle,
-                  color: Theme.of(context).cardColor,
-                  // border: Border.all(
-                  //   color: Theme.of(context).primaryColor,
-                  //   width: 2.0,
-                  // ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.5),
-                      blurRadius: 6.0,
-                      spreadRadius: 3,
-                    )
-                  ],
-                ),
-          child: front
-              ? Center(
-                  child: Text(
-                    name,
-                    textScaleFactor: 4.0,
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.w900,
-                        shadows: const [Shadow(offset: Offset(5.0, 5.0))],
-                        fontFamily: "Aldhabi",
-                        color: Colors.green.shade500),
-                  ),
-                )
-              : Center(
-                  child: Text(
-                    name,
-                    textScaleFactor: 1.7,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          decoration: BoxDecoration(
+              shape: front ? BoxShape.circle : BoxShape.rectangle,
+              color: front
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).primaryColor.withAlpha(100),
+              borderRadius: front ? null : BorderRadius.circular(25)),
+          width: size.width * 0.45,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: front
+                ? Center(
+                    child: Text(
+                      name,
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontWeight: FontWeight.w900,
-                          fontFamily: "A-Hemmat",
-                        ),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                    softWrap: true,
+                          shadows: const [Shadow(offset: Offset(5.0, 5.0))],
+                          fontFamily: "ReemKufi",
+                          color: Colors.white),
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                          fontFamily: "AmiriQuran",
+                          height: 2,
+                          fontWeight: FontWeight.w900),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.visible,
+                      softWrap: true,
+                    ),
                   ),
-                ),
+          ),
         ));
   }
 }

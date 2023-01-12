@@ -15,7 +15,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     return PlayerBuilder.playerState(
       player: widget.audioPlayer,
       builder: (context, playerState) => Material(
-        elevation: 6,
+        color: Theme.of(context).primaryColor.withAlpha(100),
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(15), topRight: Radius.circular(15)),
         child: Padding(
@@ -27,35 +27,47 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                   stream: widget.audioPlayer.current,
                   builder: (context, currentSnap) {
                     final current = currentSnap.data;
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(widget.audioPlayer.getCurrentAudioAlbum),
-                        currentSnap.hasData
-                            ? Text(current!.audio.audio.metas.title ?? '')
-                            : const Text('-'),
-                        const Spacer(),
-                        StreamBuilder<Duration>(
-                            stream: widget.audioPlayer.currentPosition,
-                            builder: (context, positionSnap) {
-                              Duration? duration = positionSnap.data;
-                              return Row(
-                                children: [
-                                  positionSnap.hasData
-                                      ? Text(
-                                          duration!.toString().split(".").first)
-                                      : const Text('00:00'),
-                                  const Text(" / "),
-                                  currentSnap.hasData
-                                      ? Text(current!.audio.duration
-                                          .toString()
-                                          .split(".")
-                                          .first)
-                                      : const Text('00:00')
-                                ],
-                              );
-                            }),
-                      ],
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                              child: currentSnap.hasData
+                                  ? Text(
+                                      "${current!.audio.audio.metas.title} ${widget.audioPlayer.getCurrentAudioAlbum}",
+                                    )
+                                  : const Text('-')),
+                          StreamBuilder<Duration>(
+                              stream: widget.audioPlayer.currentPosition,
+                              builder: (context, positionSnap) {
+                                Duration? duration = positionSnap.data;
+                                return DefaultTextStyle(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(fontFamily: ""),
+                                  child: Row(
+                                    children: [
+                                      positionSnap.hasData
+                                          ? Text(duration!
+                                              .toString()
+                                              .split(".")
+                                              .first)
+                                          : const Text('00:00'),
+                                      const Text(" / "),
+                                      currentSnap.hasData
+                                          ? Text(current!.audio.duration
+                                              .toString()
+                                              .split(".")
+                                              .first)
+                                          : const Text('00:00')
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ],
+                      ),
                     );
                   }),
               Row(
@@ -106,6 +118,9 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                     },
                   )
                 ],
+              ),
+              const SizedBox(
+                height: 15,
               )
             ],
           ),

@@ -98,8 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
               // backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: true,
+              backgroundColor: Theme.of(context).primaryColor,
               bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(AppDimensions.normalize(150)),
+                  preferredSize: Size.fromHeight(AppDimensions.normalize(120)),
                   child: Expanded(
                     child: Image.asset(
                       'assets/images/header-bg (1).png',
@@ -108,20 +109,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: theme.scaffoldBackgroundColor,
                     ),
                   )),
-              title: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: EntranceFader(
-                  delay: const Duration(milliseconds: 100),
-                  duration: const Duration(milliseconds: 350),
-                  offset: const Offset(0.0, -50.0),
-                  child: Text(
-                    AppLocalizations.of(context)!.appTitle,
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                        color: theme.scaffoldBackgroundColor,
-                        fontWeight: FontWeight.w900),
-                  ),
-                ),
-              ),
+              // title: Padding(
+              //   padding: const EdgeInsets.all(5.0),
+              //   child: EntranceFader(
+              //     delay: const Duration(milliseconds: 100),
+              //     duration: const Duration(milliseconds: 350),
+              //     offset: const Offset(0.0, -50.0),
+              //     child: Text(
+              //       AppLocalizations.of(context)!.appTitle,
+              //       style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+              //           color: theme.scaffoldBackgroundColor,
+              //           fontWeight: FontWeight.w900),
+              //     ),
+              //   ),
+              // ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -147,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: const [
                   PrayersTimesWidget(),
                   NamesSection(),
-                  Expanded(child: QiblahCompass()),
+                  Flexible(child: QiblahCompass()),
                 ],
               ),
               const QuotesSection(),
